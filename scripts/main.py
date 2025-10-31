@@ -19,6 +19,11 @@ else:
 
 @artist_decorator
 def get_artist_generell_info(artist: str):
+    """Gets short description of The Artist from theaudiodb
+
+    Args:
+        artist (str): name of the artist entered in the GUI
+    """
     request = requests.get(
         f"https://www.theaudiodb.com/api/v1/json/123/search.php?s={artist}"
     )
@@ -28,14 +33,19 @@ def get_artist_generell_info(artist: str):
         r.write(json_dumped)
         df = pd.json_normalize(actual_json, "artists")
         website = df["strWebsite"]
-        print(list(website))
+        if list(website) == []:
+            print("No Website found")
+        else:
+            print(list(website))
 
 
 def main():
-    # NUR: Artist aus dem Fenster nehmen statt input()
+    """For now gets the artist value from GUI"""
     artist = (values.get("-ARTIST-", "") if values else "").strip()
     if artist:
         get_artist_generell_info(artist)
+    else:
+        print("No artist entered")
 
 
 if __name__ == "__main__":
