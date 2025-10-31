@@ -1,3 +1,5 @@
+from tkinter import Menu
+
 import PySimpleGUI as sg
 
 sg.theme("Dark Grey 15")
