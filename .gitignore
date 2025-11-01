@@ -1,1 +1,6 @@
-/musikimportervenv
+# Python virtual environments
+.venv/
+musikimportervenv/
+
+# Ignore generated artist JSON files
+artists/
