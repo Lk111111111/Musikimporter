@@ -4,3 +4,5 @@ musikimportervenv/
 
 # Ignore generated artist JSON files
 artists/
+scripts/__pycache__/
+__pycache__/
