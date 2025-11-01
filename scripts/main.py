@@ -31,13 +31,13 @@ def get_audius_host():
         return None
 
 
-def audius_search_tracks(host, query, limit=5):
-    if not host or not query:
+def audius_search_tracks(host, artist, limit=5):
+    if not host or not artist:
         return []
     try:
         r = requests.get(
             f"{host}/v1/tracks/search",
-            params={"query": query, "limit": limit, "app_name": APP_NAME},
+            params={"query": artist, "limit": limit, "app_name": APP_NAME},
             timeout=15,
         )
         r.raise_for_status()
@@ -99,10 +99,11 @@ def main():
     for i, t in enumerate(tracks, 1):
         title = t.get("title", "(untitled)")
         user = (t.get("user") or {}).get("name", "Unknown Artist")
-        print(f"{i}. {title} — {user}")
+        print(f"{i-1}. {title} — {user}")
+    song_selection = int(input("What song do you want to listen to from this top 5: "))
+    song = tracks[song_selection]
 
-    first = tracks[0]
-    url = audius_stream_url(host, first.get("id"))
+    url = audius_stream_url(host, song.get("id"))
     if url:
         print("Opening stream:", url)
         webbrowser.open(url)
